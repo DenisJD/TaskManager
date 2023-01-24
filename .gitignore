@@ -1,5 +1,12 @@
 app/build
 app/.gradle
+app/taskManager.trace.db
+app/taskManager.mv.db
+app/derby.log
+app/src/main/generated
+taskManager.trace.db
+taskManager.mv.db
+gerby.log
 
 ### IntelliJ IDEA ###
 .idea
