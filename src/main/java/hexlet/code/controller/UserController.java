@@ -61,7 +61,7 @@ public class UserController {
 
     @DeleteMapping(ID)
     @PreAuthorize(ONLY_OWNER_BY_ID)
-    void deleteUser(@PathVariable final long id) {
+    public void deleteUser(@PathVariable final long id) {
         userRepository.deleteById(id);
     }
 }

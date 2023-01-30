@@ -1,0 +1,28 @@
+package hexlet.code.service;
+
+import hexlet.code.dto.StatusDto;
+import hexlet.code.model.Status;
+import hexlet.code.repository.StatusRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@AllArgsConstructor
+public class StatusServiceImpl implements StatusService {
+
+    private final StatusRepository statusRepository;
+
+    @Override
+    public Status createStatus(StatusDto statusDto) {
+        final Status status = new Status();
+        status.setName(statusDto.getName());
+        return statusRepository.save(status);
+    }
+
+    @Override
+    public Status updateStatus(long id, StatusDto statusDto) {
+        final Status statusToUpdate = statusRepository.findById(id).get();
+        statusToUpdate.setName(statusDto.getName());
+        return statusRepository.save(statusToUpdate);
+    }
+}
