@@ -1,12 +1,13 @@
-app/build
-app/.gradle
-app/taskManager.trace.db
-app/taskManager.mv.db
-app/derby.log
-app/src/main/generated
+build
+.gradle
 taskManager.trace.db
 taskManager.mv.db
+derby.log
+src/main/generated
 gerby.log
+node
+frontend/build
+frontend/node_modules
 
 ### IntelliJ IDEA ###
 .idea

@@ -1,22 +1,22 @@
 setup:
-	make -C app setup
+	gradle wrapper --gradle-version 7.4
 
 clean:
-	make -C app clean
+	./gradlew clean
 
 build:
-	make -C app build
+	./gradlew clean build
 
 install:
-	make -C app install
+	./gradlew installDist
 
 lint:
-	make -C app lint
+	./gradlew checkstyleMain checkstyleTest
 
 test:
-	make -C app test
+	./gradlew test
 
 report:
-	make -C app report
+	./gradlew jacocoTestReport
 
 .PHONY: build
