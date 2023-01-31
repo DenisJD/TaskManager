@@ -23,7 +23,7 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @Table(name = "statuses")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Status {
+public class TaskStatus {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -36,7 +36,7 @@ public class Status {
     @Temporal(TIMESTAMP)
     private Date createdAt;
 
-    public Status(final Long id) {
+    public TaskStatus(final Long id) {
         this.id = id;
     }
 }

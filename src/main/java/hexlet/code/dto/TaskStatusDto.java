@@ -10,10 +10,10 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StatusDto {
+public class TaskStatusDto {
 
     @NotBlank
-    @Size(min = 1)
+    @Size(min = 3, max = 1000)
     private String name;
 
 }

@@ -44,7 +44,6 @@ public class WebConfiguration implements WebMvcConfigurer {
                     }
                     return location.exists() && location.isReadable() ? location : null;
                 }
-
             });
     }
 
