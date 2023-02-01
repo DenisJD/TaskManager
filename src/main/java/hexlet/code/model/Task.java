@@ -12,12 +12,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.TemporalType.TIMESTAMP;
@@ -59,7 +61,12 @@ public class Task {
     @Temporal(TIMESTAMP)
     private Date createdAt;
 
+    @ManyToMany
+    @JoinColumn(name = "labels_id")
+    private Set<Label> labels;
+
     public Task(Long id) {
         this.id = id;
     }
+
 }

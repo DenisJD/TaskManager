@@ -1,10 +1,12 @@
 package hexlet.code.controller;
 
+import com.querydsl.core.types.Predicate;
 import hexlet.code.dto.TaskDto;
 import hexlet.code.model.Task;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.service.TaskService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +19,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
-import java.util.List;
 
 import static hexlet.code.controller.TaskController.TASK_CONTROLLER_PATH;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -47,8 +47,9 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> getTasks() {
-        return taskRepository.findAll().stream().toList();
+    public Iterable<Task> getTasks(@QuerydslPredicate final Predicate predicate) {
+        return predicate == null ? taskRepository.findAll()
+            : taskRepository.findAll(predicate);
     }
 
     @GetMapping(ID)
@@ -57,7 +58,8 @@ public class TaskController {
     }
 
     @PutMapping(ID)
-    public Task updateTask(@PathVariable final long id, @RequestBody @Valid TaskDto taskDto) {
+    public Task updateTask(@PathVariable final long id,
+                           @RequestBody @Valid TaskDto taskDto) {
         return taskService.updateTask(id, taskDto);
     }
 
