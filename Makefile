@@ -19,4 +19,7 @@ test:
 report:
 	./gradlew jacocoTestReport
 
+generate-migrations:
+	gradle diffChangeLog
+
 .PHONY: build
