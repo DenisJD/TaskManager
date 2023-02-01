@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User createUser(UserDto userDto) {
+    public User createUser(final UserDto userDto) {
         final User user = new User();
         user.setEmail(userDto.getEmail());
         user.setFirstName(userDto.getFirstName());
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User updateUser(long id, UserDto userDto) {
+    public User updateUser(long id, final UserDto userDto) {
         final User userToUpdate = userRepository.findById(id).get();
         userToUpdate.setEmail(userDto.getEmail());
         userToUpdate.setFirstName(userDto.getFirstName());
