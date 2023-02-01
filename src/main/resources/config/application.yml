@@ -4,6 +4,9 @@ server:
 base-url: /api
 
 spring:
+  profiles:
+    active: dev
+
   application:
     name: taskManager
 
@@ -12,5 +15,4 @@ spring:
     change-log: classpath:db/changelog/changelog-master.xml
 
   jpa:
-    hibernate:
-      ddl-auto: create-drop
+    generate-ddl: true
