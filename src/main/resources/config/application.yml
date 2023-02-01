@@ -8,9 +8,6 @@ springdoc:
     path: /swagger-ui.html
 
 spring:
-  profiles:
-    active: dev
-
   application:
     name: taskManager
 
@@ -20,3 +17,5 @@ spring:
 
   jpa:
     generate-ddl: true
+    hibernate:
+      ddl-auto: validate
