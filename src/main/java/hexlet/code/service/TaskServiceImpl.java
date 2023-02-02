@@ -32,6 +32,10 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task createTask(final TaskDto taskDto) {
         final Task task = fromDto(taskDto);
+        final Long executorId = taskDto.getExecutorId();
+        if (executorId != null) {
+            task.setExecutor(userRepository.findById(executorId).get());
+        }
         taskRepository.save(task);
         return taskRepository.findById(task.getId()).get();
     }
@@ -40,6 +44,10 @@ public class TaskServiceImpl implements TaskService {
     public Task updateTask(long id, final TaskDto taskDto) {
         final Task taskToUpdate = taskRepository.findById(id).get();
         merge(taskToUpdate, taskDto);
+        final Long executorId = taskDto.getExecutorId();
+        if (executorId != null) {
+            taskToUpdate.setExecutor(userRepository.findById(executorId).get());
+        }
         taskRepository.save(taskToUpdate);
         return taskRepository.findById(taskToUpdate.getId()).get();
     }
@@ -49,7 +57,6 @@ public class TaskServiceImpl implements TaskService {
         taskToUpdate.setName(newTask.getName());
         taskToUpdate.setDescription(newTask.getDescription());
         taskToUpdate.setTaskStatus(newTask.getTaskStatus());
-        taskToUpdate.setExecutor(newTask.getExecutor());
         taskToUpdate.setLabels(newTask.getLabels());
     }
 
@@ -58,8 +65,6 @@ public class TaskServiceImpl implements TaskService {
         final User author = userService.getCurrentUser();
 
         final TaskStatus taskStatus = taskStatusRepository.findById(taskDto.getTaskStatusId()).get();
-
-        final User executor = userRepository.findById(taskDto.getExecutorId()).get();
 
         final Set<Label> labels = taskDto.getLabelIds().stream()
             .map(x -> labelRepository.findById(x).get())
@@ -70,7 +75,6 @@ public class TaskServiceImpl implements TaskService {
             .description(taskDto.getDescription())
             .taskStatus(taskStatus)
             .author(author)
-            .executor(executor)
             .labels(labels)
             .build();
     }
