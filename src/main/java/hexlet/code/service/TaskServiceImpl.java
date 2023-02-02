@@ -24,7 +24,9 @@ public class TaskServiceImpl implements TaskService {
     private final UserService userService;
 
     private final LabelRepository labelRepository;
+
     private final TaskStatusRepository taskStatusRepository;
+
     private final UserRepository userRepository;
 
     @Override
@@ -72,5 +74,4 @@ public class TaskServiceImpl implements TaskService {
             .labels(labels)
             .build();
     }
-
 }

@@ -31,15 +31,11 @@ public class Label {
     private Long id;
 
     @NotBlank
-    @Column(unique = true)
+    @Column(columnDefinition = "varchar(1001)", unique = true)
     private String name;
 
     @CreationTimestamp
     @Temporal(TIMESTAMP)
     private Date createdAt;
-
-    public Label(final long id) {
-        this.id = id;
-    }
 
 }

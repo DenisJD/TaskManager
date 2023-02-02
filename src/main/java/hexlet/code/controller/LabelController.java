@@ -100,5 +100,4 @@ public class LabelController {
     public void deleteLabel(@PathVariable final long id) {
         labelRepository.deleteById(id);
     }
-
 }

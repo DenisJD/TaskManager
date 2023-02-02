@@ -25,5 +25,4 @@ public class LabelServiceImpl implements LabelService {
         labelToUpdate.setName(labelDto.getName());
         return labelRepository.save(labelToUpdate);
     }
-
 }

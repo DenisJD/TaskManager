@@ -100,5 +100,4 @@ public class TaskStatusController {
     public void deleteTaskStatus(@PathVariable final long id) {
         taskStatusRepository.deleteById(id);
     }
-
 }

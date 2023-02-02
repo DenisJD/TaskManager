@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -30,14 +31,11 @@ public class TaskStatus {
     private Long id;
 
     @NotBlank
+    @Column(columnDefinition = "varchar(1001)")
     private String name;
 
     @CreationTimestamp
     @Temporal(TIMESTAMP)
     private Date createdAt;
-
-    public TaskStatus(final Long id) {
-        this.id = id;
-    }
 
 }

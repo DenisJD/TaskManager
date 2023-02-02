@@ -17,10 +17,15 @@ import static io.jsonwebtoken.impl.TextCodec.BASE64;
 public class JWTHelper {
 
     private final String issuer;
+
     private final Long expirationSec;
+
     private final Long clockSkewSec;
+
     private final Clock clock;
+
     private final String secretKey;
+
 
     public JWTHelper(@Value("${jwt.issuer:task_manager}") final String pIssuer,
                      @Value("${jwt.expiration-sec:86400}") final Long pExpirationSec,

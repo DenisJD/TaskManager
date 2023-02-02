@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -38,9 +38,10 @@ public class Task {
     private Long id;
 
     @NotBlank
+    @Column(columnDefinition = "varchar(1001)")
     private String name;
 
-    @Lob
+    @Column(columnDefinition = "varchar(1001)")
     private String description;
 
     @ManyToOne
@@ -64,9 +65,5 @@ public class Task {
     @ManyToMany
     @JoinColumn(name = "labels_id")
     private Set<Label> labels;
-
-    public Task(Long id) {
-        this.id = id;
-    }
 
 }
