@@ -53,9 +53,9 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private UsernamePasswordAuthenticationToken buildAuthToken(final String email) {
+    private UsernamePasswordAuthenticationToken buildAuthToken(final String username) {
         return new UsernamePasswordAuthenticationToken(
-            email,
+            username,
             null,
             DEFAULT_AUTHORITIES
         );

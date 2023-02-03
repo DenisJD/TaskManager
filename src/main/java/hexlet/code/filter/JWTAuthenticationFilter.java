@@ -52,7 +52,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication authResult) throws IOException {
         final UserDetails user = (UserDetails) authResult.getPrincipal();
         final String token = jwtHelper.expiring(Map.of(SPRING_SECURITY_FORM_USERNAME_KEY, user.getUsername()));
-        response.getWriter().println(token);
+        response.getWriter().print(token);
     }
 
     private LoginDto getLoginData(final HttpServletRequest request) throws AuthenticationException {

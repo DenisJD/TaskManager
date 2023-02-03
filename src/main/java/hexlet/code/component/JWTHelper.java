@@ -27,7 +27,7 @@ public class JWTHelper {
     private final String secretKey;
 
 
-    public JWTHelper(@Value("${jwt.issuer:task_manager}") final String pIssuer,
+    public JWTHelper(@Value("${jwt.issuer:spring_blog}") final String pIssuer,
                      @Value("${jwt.expiration-sec:86400}") final Long pExpirationSec,
                      @Value("${jwt.clock-skew-sec:300}") final Long pClockSkewSec,
                      @Value("${jwt.secret:secret}") final String pSecretKey) {

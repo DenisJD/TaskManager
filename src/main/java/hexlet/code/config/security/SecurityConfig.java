@@ -80,6 +80,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         );
 
         http.csrf().disable()
+            .headers().frameOptions().disable()
+            .and()
             .authorizeRequests()
             .requestMatchers(publicUrls).permitAll()
             .anyRequest().authenticated()
@@ -89,7 +91,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().disable()
             .formLogin().disable()
             .httpBasic().disable()
-            .logout().disable()
-            .headers().frameOptions().disable();
+            .logout().disable();
     }
 }
