@@ -37,7 +37,7 @@ public class TaskServiceImpl implements TaskService {
             task.setExecutor(userRepository.findById(executorId).get());
         }
         taskRepository.save(task);
-        return taskRepository.findById(task.getId()).get();
+        return task;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class TaskServiceImpl implements TaskService {
             taskToUpdate.setExecutor(userRepository.findById(executorId).get());
         }
         taskRepository.save(taskToUpdate);
-        return taskRepository.findById(taskToUpdate.getId()).get();
+        return taskToUpdate;
     }
 
     private void merge(final Task taskToUpdate, final TaskDto taskDto) {

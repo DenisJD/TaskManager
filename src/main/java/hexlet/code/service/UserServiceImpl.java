@@ -30,7 +30,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        return userRepository.save(user);
+        userRepository.save(user);
+        return user;
     }
 
     @Override
@@ -40,7 +41,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userToUpdate.setFirstName(userDto.getFirstName());
         userToUpdate.setLastName(userDto.getLastName());
         userToUpdate.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        return userRepository.save(userToUpdate);
+        userRepository.save(userToUpdate);
+        return userToUpdate;
     }
 
     @Override
