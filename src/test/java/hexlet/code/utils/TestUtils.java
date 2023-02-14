@@ -16,6 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map;
 
 import static hexlet.code.controller.UserController.USER_CONTROLLER_PATH;
@@ -30,18 +33,9 @@ public class TestUtils {
 
     public static final String TEST_USERNAME_2 = "mail2@mail.com";
 
+    private static final Path TEST_USER_PATH = Path.of("src/test/resources/testUser.json");
+
     private static final ObjectMapper MAPPER = new ObjectMapper().findAndRegisterModules();
-
-    private final UserDto testRegistrationDto = new UserDto(
-        TEST_USERNAME,
-        "fname",
-        "lname",
-        "pwd"
-    );
-
-    public UserDto getTestRegistrationDto() {
-        return testRegistrationDto;
-    }
 
     @Autowired
     private MockMvc mockMvc;
@@ -72,8 +66,20 @@ public class TestUtils {
         return userRepository.findByEmail(email).get();
     }
 
+    public final UserDto getTestUserDto() throws IOException {
+        String content = Files.readString(TEST_USER_PATH);
+        Map<String, String> userData = fromJson(content, new TypeReference<>() {
+        });
+        return new UserDto(
+            TEST_USERNAME,
+            userData.get("firstName"),
+            userData.get("lastName"),
+            userData.get("password")
+        );
+    }
+
     public ResultActions regDefaultUser() throws Exception {
-        return regUser(testRegistrationDto);
+        return regUser(getTestUserDto());
     }
 
     public ResultActions regUser(final UserDto userDto) throws Exception {

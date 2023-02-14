@@ -112,9 +112,10 @@ public class UserControllerTest {
     @Test
     public void login() throws Exception {
         utils.regDefaultUser();
+        UserDto userDto = utils.getTestUserDto();
         final LoginDto loginDto = new LoginDto(
-            utils.getTestRegistrationDto().getEmail(),
-            utils.getTestRegistrationDto().getPassword()
+            userDto.getEmail(),
+            userDto.getPassword()
         );
 
         final var loginRequest = post(LOGIN)
@@ -126,9 +127,10 @@ public class UserControllerTest {
 
     @Test
     public void loginFail() throws Exception {
+        UserDto userDto = utils.getTestUserDto();
         final LoginDto loginDto = new LoginDto(
-            utils.getTestRegistrationDto().getEmail(),
-            utils.getTestRegistrationDto().getPassword()
+            userDto.getEmail(),
+            userDto.getPassword()
         );
 
         final var loginRequest = post(LOGIN)

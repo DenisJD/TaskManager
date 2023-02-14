@@ -15,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
 
@@ -56,6 +55,7 @@ public class LabelControllerTest {
     @BeforeEach
     public void before() throws Exception {
         utils.regDefaultUser();
+        regDefaultLabel();
     }
 
     @AfterEach
@@ -63,26 +63,29 @@ public class LabelControllerTest {
         utils.tearDown();
     }
 
-    private ResultActions regDefaultLabel() throws Exception {
+    private void regDefaultLabel() throws Exception {
         final LabelDto labelDto = new LabelDto(LABEL_NAME);
         final var request = post(LABELS_CONTROLLER_PATH)
             .content(asJson(labelDto))
             .contentType(APPLICATION_JSON);
-        return utils.perform(request, TEST_USERNAME);
+        utils.perform(request, TEST_USERNAME);
     }
 
     @Test
     public void createLabel() throws Exception {
-        assertEquals(0, labelRepository.count());
-        regDefaultLabel().andExpect(status().isCreated());
         assertEquals(1, labelRepository.count());
+        final LabelDto labelDto = new LabelDto(LABEL_NAME_2);
+        final var request = post(LABELS_CONTROLLER_PATH)
+            .content(asJson(labelDto))
+            .contentType(APPLICATION_JSON);
+        utils.perform(request, TEST_USERNAME)
+            .andExpect(status().isCreated());
+        assertEquals(2, labelRepository.count());
 
     }
 
     @Test
     public void getLabel() throws Exception {
-        regDefaultLabel();
-
         final Label expectedLabel = labelRepository.findAll().get(0);
 
         final var response = utils.perform(
@@ -99,8 +102,6 @@ public class LabelControllerTest {
 
     @Test
     public void getAllLabels() throws Exception {
-        regDefaultLabel();
-
         final var response = utils.perform(
                 get(LABELS_CONTROLLER_PATH), TEST_USERNAME)
             .andExpect(status().isOk())
@@ -115,8 +116,6 @@ public class LabelControllerTest {
 
     @Test
     public void updateLabel() throws Exception {
-        regDefaultLabel();
-
         final Long labelId = labelRepository.findByName(LABEL_NAME).get().getId();
 
         final var labelDto = new LabelDto(LABEL_NAME_2);
@@ -134,8 +133,6 @@ public class LabelControllerTest {
 
     @Test
     public void deleteLabel() throws Exception {
-        regDefaultLabel();
-
         final Long labelId = labelRepository.findByName(LABEL_NAME).get().getId();
 
         utils.perform(
